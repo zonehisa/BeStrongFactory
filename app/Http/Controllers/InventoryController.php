@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
@@ -11,7 +12,9 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        //
+        $inventories = Inventory::all();
+
+        return view('inventories.index', ['inventories' => $inventories]);
     }
 
     /**
@@ -19,7 +22,7 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('inventories.create');
     }
 
     /**
@@ -27,7 +30,8 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        return redirect()->route('inventories.index');
     }
 
     /**
