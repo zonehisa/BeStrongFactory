@@ -59,10 +59,10 @@
                                 <script>
                                     const inventorySelect = document.getElementById('inventory-select');
                                     const incomingLink = document.getElementById('incoming-link');
-
+                                    const outgoingLink = document.getElementById('outgoing-link');
                                     // 初期状態ではリンクを無効化
                                     incomingLink.classList.add('opacity-50', 'cursor-not-allowed');
-
+                                    outgoingLink.classList.add('opacity-50', 'cursor-not-allowed');
                                     inventorySelect.addEventListener('change', function() {
                                         const selectedOption = this.options[this.selectedIndex];
 
@@ -77,6 +77,8 @@
                                             // 商品が選択されたらリンクを有効化し、URLを設定
                                             incomingLink.classList.remove('opacity-50', 'cursor-not-allowed');
                                             incomingLink.href = "{{ route('incoming_shipments.create') }}?inventory_id=" + selectedOption.value;
+                                            outgoingLink.classList.remove('opacity-50', 'cursor-not-allowed');
+                                            outgoingLink.href = "{{ route('outgoing_shipments.create') }}?inventory_id=" + selectedOption.value;
                                         } else {
                                             document.getElementById('current-stock').textContent = '-';
                                             document.getElementById('minimum-stock').textContent = '-';
@@ -85,6 +87,8 @@
                                             // 商品が選択されていない場合はリンクを無効化
                                             incomingLink.classList.add('opacity-50', 'cursor-not-allowed');
                                             incomingLink.href = '#';
+                                            outgoingLink.classList.add('opacity-50', 'cursor-not-allowed');
+                                            outgoingLink.href = '#';
                                         }
                                     });
                                 </script>

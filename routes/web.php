@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IncomingShipmentController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OutgoingShipmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockManagementController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('inventories', InventoryController::class);
     Route::resource('incoming_shipments', IncomingShipmentController::class);
+    Route::resource('outgoing_shipments', OutgoingShipmentController::class);
     Route::get('stock_management', [StockManagementController::class, 'index'])->name('stock_management.index');
 });
 
