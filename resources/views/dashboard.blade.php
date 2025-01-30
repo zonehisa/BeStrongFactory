@@ -1,18 +1,16 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div class="flex">
         <div class="w-64 h-screen bg-gray-800 text-white">
             <ul>
-                <li class="p-4 hover:bg-gray-700"><a href="#">内示管理</a></li>
-                <li class="p-4 hover:bg-gray-700"><a href="#">製品管理</a></li>
-                <li class="p-4 hover:bg-gray-700"><a href="#">ユーザー管理</a></li>
-                <li class="p-4 hover:bg-gray-700"><a href="#">設定</a></li>
-                <li class="p-4 hover:bg-gray-700"><a href="#">ログアウト</a></li>
+                <li>
+                    <a href="#" class="block p-4 hover:bg-gray-700 relative">注文管理</a>
+                </li>
+                <li>
+                    <a href="{{ route('inventories.index') }}" class="block p-4 hover:bg-gray-700 relative">材料マスター</a>
+                </li>
+                <li>
+                    <a href="#" class="block p-4 hover:bg-gray-700">取引先管理</a>
+                </li>
             </ul>
         </div>
         <div class="w-full">

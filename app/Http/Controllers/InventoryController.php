@@ -30,6 +30,11 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+        $inventory = new Inventory();
+        $inventory->item_name = $request->item_name;
+        $inventory->minimum_stock = $request->minimum_stock;
+        $inventory->package_quantity = $request->package_quantity;
+        $inventory->save();
 
         return redirect()->route('inventories.index');
     }

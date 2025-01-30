@@ -1,10 +1,16 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            在庫管理
-        </h2>
-    </x-slot>
-
+    <div class="flex">
+        <div class="w-64 h-screen bg-gray-800 text-white">
+            <ul>
+                <li>
+                    <a href="#" class="block p-4 hover:bg-gray-700 relative">注文管理</a>
+                </li>
+                <li>
+                    <a href="{{ route('inventories.index') }}" class="block p-4 hover:bg-gray-700 relative">材料マスター</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
