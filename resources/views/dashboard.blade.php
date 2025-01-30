@@ -6,7 +6,10 @@
                     <a href="#" class="block p-4 hover:bg-gray-700 relative">注文管理</a>
                 </li>
                 <li>
-                    <a href="{{ route('inventories.index') }}" class="block p-4 hover:bg-gray-700 relative">材料マスター</a>
+                    <a href="{{ route('inventories.index') }}" class="block p-4 hover:bg-gray-700 relative">在庫管理</a>
+                </li>
+                <li>
+                    <a href="{{ route('inventories.create') }}" class="block p-4 hover:bg-gray-700 relative">材料マスター登録</a>
                 </li>
                 <li>
                     <a href="#" class="block p-4 hover:bg-gray-700">取引先管理</a>

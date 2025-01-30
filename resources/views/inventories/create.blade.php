@@ -12,7 +12,7 @@
                     <form action="{{ route('inventories.store') }}" method="POST">
                         @csrf
                         <div class="flex items-center space-x-8">
-                            <input type="text" name="name" placeholder="商品名" 
+                            <input type="text" name="item_name" placeholder="商品名" 
                                 class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             
                             <input type="number" name="minimum_stock" placeholder="最小在庫数"

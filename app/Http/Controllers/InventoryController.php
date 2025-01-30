@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 
@@ -31,12 +32,14 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         $inventory = new Inventory();
+        $inventory->user_id = Auth::id();
         $inventory->item_name = $request->item_name;
         $inventory->minimum_stock = $request->minimum_stock;
         $inventory->package_quantity = $request->package_quantity;
         $inventory->save();
 
-        return redirect()->route('inventories.index');
+        return redirect()->route('inventories.index')
+            ->with('success', '登録が完了しました。');
     }
 
     /**
@@ -52,7 +55,8 @@ class InventoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $inventory = Inventory::find($id);
+        return view('inventories.edit', compact('inventory'));
     }
 
     /**
@@ -60,7 +64,15 @@ class InventoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $inventory = Inventory::find($id);
+        $inventory->item_name = $request->item_name;
+        $inventory->current_stock = $request->current_stock;
+        $inventory->minimum_stock = $request->minimum_stock;
+        $inventory->package_quantity = $request->package_quantity;
+        $inventory->save();
+
+        return redirect()->route('inventories.index')
+            ->with('success', '更新が完了しました。');
     }
 
     /**
