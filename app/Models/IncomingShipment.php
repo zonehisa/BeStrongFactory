@@ -101,4 +101,14 @@ class IncomingShipment extends Model
     {
         return $this->morphOne(StockHistory::class, 'reference');
     }
+
+    /**
+     * 担当者テーブルとのリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

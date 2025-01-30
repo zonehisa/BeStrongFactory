@@ -14,17 +14,19 @@ class IncomingShipmentController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::all();
-        return view('incoming_shipments.index', compact('inventories'));
+        $incomingShipments = IncomingShipment::all();
+        return view('incoming_shipments.index', compact('incomingShipments'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $inventories = Inventory::all(); // 在庫の一覧を取得
-        return view('incoming_shipments.create', compact('inventories'));
+        $inventories = Inventory::all();
+        $selectedInventoryId = $request->query('inventory_id');  // URLパラメータから商品IDを取得
+
+        return view('incoming_shipments.create', compact('inventories', 'selectedInventoryId'));
     }
 
     /**

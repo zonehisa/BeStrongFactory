@@ -19,7 +19,8 @@
                                 <option value="">選択してください</option>
                                 @foreach ($inventories as $inventory)
                                     <option value="{{ $inventory->id }}"
-                                        data-package-quantity="{{ $inventory->package_quantity }}">
+                                        data-package-quantity="{{ $inventory->package_quantity }}"
+                                        {{ $selectedInventoryId == $inventory->id ? 'selected' : '' }}>
                                         {{ $inventory->item_name }}
                                         (現在庫: {{ $inventory->current_stock }}個
                                         @if ($inventory->package_quantity > 1)
@@ -84,6 +85,11 @@
 
             inventorySelect.addEventListener('change', updateInfo);
             quantityInput.addEventListener('input', updateInfo);
+
+            // 初期表示時にも情報を更新
+            if (inventorySelect.value) {
+                updateInfo();
+            }
         </script>
     @endpush
 </x-app-layout>
