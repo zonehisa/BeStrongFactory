@@ -3,7 +3,7 @@
         <div class="w-64 h-screen bg-gray-800 text-white">
             <ul>
                 <li>
-                    <a href="#" class="block p-4 hover:bg-gray-700 relative">注文管理</a>
+                    <a href="{{ route('incoming_shipments.index') }}" class="block p-4 hover:bg-gray-700 relative">入出庫管理</a>
                 </li>
                 <li>
                     <a href="{{ route('inventories.index') }}" class="block p-4 hover:bg-gray-700 relative">在庫管理</a>

@@ -45,8 +45,11 @@ class IncomingShipment extends Model
     {
         // 入荷登録時の処理
         static::created(function ($incomingShipment) {
+            // パッケージ数量を考慮した実際の入荷数を計算
+            $actualQuantity = $incomingShipment->quantity * $incomingShipment->inventory->package_quantity;
+
             $incomingShipment->inventory->updateStock(
-                $incomingShipment->quantity,
+                $actualQuantity,
                 'incoming',
                 $incomingShipment
             );
@@ -55,8 +58,11 @@ class IncomingShipment extends Model
         // 入荷削除時の処理
         static::deleted(function ($incomingShipment) {
             if (!$incomingShipment->isForceDeleting()) {
+                // パッケージ数量を考慮した実際の入荷数を計算
+                $actualQuantity = $incomingShipment->quantity * $incomingShipment->inventory->package_quantity;
+
                 $incomingShipment->inventory->updateStock(
-                    -$incomingShipment->quantity,
+                    -$actualQuantity,
                     'incoming',
                     $incomingShipment
                 );
@@ -65,8 +71,11 @@ class IncomingShipment extends Model
 
         // 入荷復元時の処理
         static::restored(function ($incomingShipment) {
+            // パッケージ数量を考慮した実際の入荷数を計算
+            $actualQuantity = $incomingShipment->quantity * $incomingShipment->inventory->package_quantity;
+
             $incomingShipment->inventory->updateStock(
-                $incomingShipment->quantity,
+                $actualQuantity,
                 'incoming',
                 $incomingShipment
             );
