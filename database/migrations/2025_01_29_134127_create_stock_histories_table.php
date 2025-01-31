@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('stock_histories', function (Blueprint $table) {
             $table->id(); // 主キー
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade'); // 在庫ID（外部キー）
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // ユーザーID（外部キー）
             $table->integer('stock_quantity'); // 在庫数量
             $table->date('record_date'); // 記録日
             $table->string('movement_type')->nullable(); // 在庫変動タイプ（initial:初期在庫、incoming:入荷、outgoing:出荷）

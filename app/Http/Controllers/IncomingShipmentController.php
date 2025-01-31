@@ -6,6 +6,7 @@ use App\Models\IncomingShipment;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class IncomingShipmentController extends Controller
 {
@@ -37,35 +38,40 @@ class IncomingShipmentController extends Controller
         $request->validate([
             'inventory_id' => ['required', 'exists:inventories,id'],
             'quantity' => ['required', 'integer', 'min:1'],
+            'supplier_name' => ['required', 'string', 'max:255'],
         ], [
             'inventory_id.required' => '商品を選択してください。',
             'inventory_id.exists' => '選択された商品は存在しません。',
             'quantity.required' => '入庫数量を入力してください。',
             'quantity.integer' => '入庫数量は整数で入力してください。',
             'quantity.min' => '入庫数量は1以上で入力してください。',
+            'supplier_name.required' => '仕入先を入力してください。',
         ]);
 
-        $inventory = Inventory::findOrFail($request->inventory_id);
+        try {
+            DB::beginTransaction();
 
-        // パッケージ数量を考慮した実際の入庫数を計算
-        $actualQuantity = $request->quantity * $inventory->package_quantity;
+            $inventory = Inventory::findOrFail($request->inventory_id);
 
-        // 入庫情報を記録
-        $incomingShipment = new IncomingShipment();
-        $incomingShipment->inventory_id = $request->inventory_id;
-        $incomingShipment->user_id = Auth::id();
-        $incomingShipment->quantity = $request->quantity;
-        $incomingShipment->unit = $inventory->package_quantity > 1 ? 'パッケージ' : '個';
-        $incomingShipment->received_date = now();
-        $incomingShipment->status = 'completed';
-        $incomingShipment->save();
+            // 入庫情報を記録
+            $incomingShipment = new IncomingShipment();
+            $incomingShipment->inventory_id = $request->inventory_id;
+            $incomingShipment->user_id = Auth::id();
+            $incomingShipment->quantity = $request->quantity;
+            $incomingShipment->supplier_name = $request->supplier_name;
+            $incomingShipment->received_date = now();
+            $incomingShipment->status = 'completed';
+            $incomingShipment->save();
 
-        // 在庫数を更新
-        $inventory->current_stock += $actualQuantity;
-        $inventory->save();
-
-        return redirect()->route('incoming_shipments.index')
-            ->with('success', "{$inventory->item_name}を{$request->quantity}{$inventory->unit}（{$actualQuantity}個）入庫しました。");
+            DB::commit();
+            return redirect()->route('inventories.index')
+                ->with('success', "{$inventory->item_name}を{$request->quantity}個入庫しました。");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => '入庫処理に失敗しました。']);
+        }
     }
 
     /**

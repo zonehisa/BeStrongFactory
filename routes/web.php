@@ -4,7 +4,7 @@ use App\Http\Controllers\IncomingShipmentController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\OutgoingShipmentController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StockManagementController;
+use App\Http\Controllers\StockHistoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,7 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('inventories', InventoryController::class);
     Route::resource('incoming_shipments', IncomingShipmentController::class);
     Route::resource('outgoing_shipments', OutgoingShipmentController::class);
-    Route::get('stock_management', [StockManagementController::class, 'index'])->name('stock_management.index');
+    Route::resource('stock_histories', StockHistoryController::class);
+    Route::get('/stock-histories', [StockHistoryController::class, 'index'])->name('stock_histories.index');
 });
 
 require __DIR__ . '/auth.php';

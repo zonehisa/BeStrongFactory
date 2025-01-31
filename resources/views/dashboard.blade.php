@@ -1,18 +1,21 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            ダッシュボード
+        </h2>
+    </x-slot>
+    
     <div class="flex">
         <div class="w-64 h-screen bg-gray-800 text-white">
             <ul>
                 <li>
-                    <a href="{{ route('stock_management.index') }}" class="block p-4 hover:bg-gray-700 relative">入出庫管理</a>
-                </li>
-                <li>
                     <a href="{{ route('inventories.index') }}" class="block p-4 hover:bg-gray-700 relative">在庫管理</a>
                 </li>
                 <li>
-                    <a href="{{ route('inventories.create') }}" class="block p-4 hover:bg-gray-700 relative">材料マスター登録</a>
+                    <a href="{{ route('inventories.create') }}" class="block p-4 hover:bg-gray-700 relative">在庫マスター登録</a>
                 </li>
                 <li>
-                    <a href="#" class="block p-4 hover:bg-gray-700">取引先管理</a>
+                    <a href="{{ route('stock_histories.index') }}" class="block p-4 hover:bg-gray-700">入出庫履歴</a>
                 </li>
             </ul>
         </div>

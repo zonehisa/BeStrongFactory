@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class Inventory extends Model
 {
@@ -98,6 +99,7 @@ class Inventory extends Model
             'movement_type' => $type,
             'reference_id' => $referenceModel ? $referenceModel->id : null,
             'reference_type' => $referenceModel ? get_class($referenceModel) : null,
+            'user_id' => Auth::id(), // 現在のユーザーIDを保存
         ]);
     }
 

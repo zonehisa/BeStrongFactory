@@ -6,6 +6,7 @@ use App\Models\OutgoingShipment;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OutgoingShipmentController extends Controller
 {
@@ -36,36 +37,46 @@ class OutgoingShipmentController extends Controller
         $request->validate([
             'inventory_id' => ['required', 'exists:inventories,id'],
             'quantity' => ['required', 'integer', 'min:1'],
+            'customer_name' => ['required', 'string', 'max:255'],
         ], [
             'inventory_id.required' => '商品を選択してください。',
             'inventory_id.exists' => '選択された商品は存在しません。',
             'quantity.required' => '出庫数量を入力してください。',
             'quantity.integer' => '出庫数量は整数で入力してください。',
             'quantity.min' => '出庫数量は1以上で入力してください。',
+            'customer_name.required' => '顧客名を入力してください。',
+            'customer_name.max' => '顧客名は255文字以内で入力してください。',
         ]);
 
-        $inventory = Inventory::findOrFail($request->inventory_id);
+        try {
+            DB::beginTransaction();
 
-        // 在庫不足チェック
-        if ($inventory->current_stock < $request->quantity) {
-            return back()->withErrors(['quantity' => '在庫が不足しています。'])->withInput();
+            $inventory = Inventory::findOrFail($request->inventory_id);
+
+            // 在庫不足チェック
+            if ($inventory->current_stock < $request->quantity) {
+                return back()->withErrors(['quantity' => '在庫が不足しています。'])->withInput();
+            }
+
+            // 出庫情報を記録
+            $outgoingShipment = new OutgoingShipment();
+            $outgoingShipment->inventory_id = $request->inventory_id;
+            $outgoingShipment->user_id = Auth::id();
+            $outgoingShipment->quantity = $request->quantity;
+            $outgoingShipment->customer_name = $request->customer_name;
+            $outgoingShipment->shipped_date = now();
+            $outgoingShipment->status = 'completed';
+            $outgoingShipment->save();
+
+            DB::commit();
+            return redirect()->route('inventories.index')
+                ->with('success', "{$inventory->item_name}を{$request->quantity}個出庫しました。");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => '出庫処理に失敗しました。']);
         }
-
-        // 出庫情報を記録
-        $outgoingShipment = new OutgoingShipment();
-        $outgoingShipment->inventory_id = $request->inventory_id;
-        $outgoingShipment->user_id = Auth::id();
-        $outgoingShipment->quantity = $request->quantity;
-        $outgoingShipment->shipped_date = now();
-        $outgoingShipment->status = 'completed';
-        $outgoingShipment->save();
-
-        // 在庫数を更新
-        $inventory->current_stock -= $request->quantity;
-        $inventory->save();
-
-        return redirect()->route('inventories.index')
-            ->with('success', "{$inventory->item_name}を{$request->quantity}個出庫しました。");
     }
 
     /**

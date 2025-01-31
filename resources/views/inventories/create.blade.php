@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="minimum_stock" class="block text-gray-700 text-sm font-bold mb-2">最小在庫数</label>
+                            <label for="minimum_stock" class="block text-gray-700 text-sm font-bold mb-2">安全在庫</label>
                             <input type="number" name="minimum_stock" id="minimum_stock" min="0" required
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 value="{{ old('minimum_stock', 0) }}">

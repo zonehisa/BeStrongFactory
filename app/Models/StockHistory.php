@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StockHistory extends Model
 {
@@ -17,6 +19,7 @@ class StockHistory extends Model
      */
     protected $fillable = [
         'inventory_id',    // 在庫ID
+        'user_id',        // ユーザーID
         'stock_quantity',  // 在庫数量
         'record_date',     // 記録日
         'movement_type',   // 変動タイプ（incoming:入荷、outgoing:出荷）
@@ -38,9 +41,19 @@ class StockHistory extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function inventory()
+    public function inventory(): BelongsTo
     {
         return $this->belongsTo(Inventory::class);
+    }
+
+    /**
+     * ユーザーテーブルとのリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -48,7 +61,7 @@ class StockHistory extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function reference()
+    public function reference(): MorphTo
     {
         return $this->morphTo();
     }
