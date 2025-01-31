@@ -16,11 +16,12 @@ class Inventory extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',           // ユーザーID
+        'item_code',         // 品番
         'item_name',         // 商品名
         'current_stock',     // 現在の在庫数
-        'minimum_stock',     // 最小在庫数
-        'package_quantity',  // パッケージ数量
+        'minimum_stock',     // 最小在庫数（安全在庫数）
+        'package_quantity',  // 1パッケージあたりの入り数
+        'user_id',           // 担当者ID
     ];
 
     /**
