@@ -11,6 +11,22 @@
             </ul>
         </div>
         <div class="w-full">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+                @if ($lowStockItems->isNotEmpty())
+                    <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">
+                            <i class="fas fa-exclamation-triangle"></i> 注意
+                        </strong>
+                        
+                        <ul>
+                            @foreach ($lowStockItems as $item)
+                                <li class="font-bold text-lg text-red-500">{{ $item->item_name }} (在庫数: {{ $item->current_stock }})</li>
+                            @endforeach
+                        </ul>
+                        <span class="block sm:inline">上記の商品が安全在庫を下回っています。発注をご検討ください。</span>
+                    </div>
+                @endif
+            </div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-10">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
@@ -31,7 +47,7 @@
                                     </th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        最小在庫数
+                                        安全在庫
                                     </th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -47,7 +63,9 @@
                                 @foreach ($inventories as $inventory)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $inventory->item_code }}
+                                            <a href="{{ route('inventories.show', ['inventory' => $inventory->id]) }}">
+                                                {{ $inventory->item_code }}
+                                            </a>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $inventory->item_name }}

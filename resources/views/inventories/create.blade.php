@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form method="POST" action="{{ route('inventories.store') }}">
+                    <form method="POST" action="{{ route('inventories.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-4">
@@ -49,6 +49,75 @@
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 value="{{ old('package_quantity', 1) }}">
                             @error('package_quantity')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="supplier_name" class="block text-gray-700 text-sm font-bold mb-2">仕入先</label>
+                            <input type="text" name="supplier_name" id="supplier_name"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('supplier_name') }}">
+                            @error('supplier_name')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="customer_name" class="block text-gray-700 text-sm font-bold mb-2">顧客</label>
+                            <input type="text" name="customer_name" id="customer_name"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('customer_name') }}">
+                            @error('customer_name')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="purchase_price" class="block text-gray-700 text-sm font-bold mb-2">仕入れ価格</label>
+                            <input type="number" name="purchase_price" id="purchase_price" step="0.01"
+                                min="0"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('purchase_price') }}">
+                            @error('purchase_price')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="selling_price" class="block text-gray-700 text-sm font-bold mb-2">販売価格</label>
+                            <input type="number" name="selling_price" id="selling_price" step="0.01" min="0"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('selling_price') }}">
+                            @error('selling_price')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="lead_time" class="block text-gray-700 text-sm font-bold mb-2">納期（日数）</label>
+                            <input type="number" name="lead_time" id="lead_time" min="0"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('lead_time') }}">
+                            @error('lead_time')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="drawing_file" class="block text-gray-700 text-sm font-bold mb-2">図面ファイル</label>
+                            <input type="file" name="drawing_file" id="drawing_file" accept="image/*"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            @error('drawing_file')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="notes" class="block text-gray-700 text-sm font-bold mb-2">備考</label>
+                            <textarea name="notes" id="notes" rows="3"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ old('notes') }}</textarea>
+                            @error('notes')
                                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                             @enderror
                         </div>

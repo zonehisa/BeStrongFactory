@@ -9,46 +9,136 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('inventories.update', $inventory->id) }}" method="POST">
+                    <form method="POST" action="{{ route('inventories.update', $inventory->id) }}"
+                        enctype="multipart/form-data">
                         @csrf
-                        @method('PATCH')
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">商品名</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">現在在庫数</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最小在庫数</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">発注ロット</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="text" name="item_name" value="{{ $inventory->item_name }}"
-                                            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="number" name="current_stock" value="{{ $inventory->current_stock }}"
-                                            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="number" name="minimum_stock" value="{{ $inventory->minimum_stock }}"
-                                            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="number" name="package_quantity" value="{{ $inventory->package_quantity }}"
-                                            class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <button type="submit" 
-                                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                            更新
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        @method('PUT')
+
+                        <div class="mb-4">
+                            <label for="item_code" class="block text-gray-700 text-sm font-bold mb-2">品番</label>
+                            <input type="text" name="item_code" id="item_code" required
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('item_code', $inventory->item_code) }}">
+                            @error('item_code')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="item_name" class="block text-gray-700 text-sm font-bold mb-2">商品名</label>
+                            <input type="text" name="item_name" id="item_name" required
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('item_name', $inventory->item_name) }}">
+                            @error('item_name')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="minimum_stock" class="block text-gray-700 text-sm font-bold mb-2">最小在庫数</label>
+                            <input type="number" name="minimum_stock" id="minimum_stock" min="0" required
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('minimum_stock', $inventory->minimum_stock) }}">
+                            @error('minimum_stock')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="package_quantity"
+                                class="block text-gray-700 text-sm font-bold mb-2">パッケージ数量</label>
+                            <input type="number" name="package_quantity" id="package_quantity" min="1" required
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('package_quantity', $inventory->package_quantity) }}">
+                            @error('package_quantity')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="supplier_name" class="block text-gray-700 text-sm font-bold mb-2">仕入先</label>
+                            <input type="text" name="supplier_name" id="supplier_name"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('supplier_name', $inventory->supplier_name) }}">
+                            @error('supplier_name')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="customer_name" class="block text-gray-700 text-sm font-bold mb-2">顧客</label>
+                            <input type="text" name="customer_name" id="customer_name"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('customer_name', $inventory->customer_name) }}">
+                            @error('customer_name')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="purchase_price" class="block text-gray-700 text-sm font-bold mb-2">仕入れ価格</label>
+                            <input type="number" name="purchase_price" id="purchase_price" step="0.01"
+                                min="0"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('purchase_price', $inventory->purchase_price) }}">
+                            @error('purchase_price')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="selling_price" class="block text-gray-700 text-sm font-bold mb-2">販売価格</label>
+                            <input type="number" name="selling_price" id="selling_price" step="0.01" min="0"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('selling_price', $inventory->selling_price) }}">
+                            @error('selling_price')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="lead_time" class="block text-gray-700 text-sm font-bold mb-2">納期（日数）</label>
+                            <input type="number" name="lead_time" id="lead_time" min="0"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                value="{{ old('lead_time', $inventory->lead_time) }}">
+                            @error('lead_time')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="drawing_file" class="block text-gray-700 text-sm font-bold mb-2">図面ファイル</label>
+                            @if ($inventory->drawing_file)
+                                <div class="mb-2">
+                                    <img src="{{ Storage::url('drawings/' . $inventory->drawing_file) }}"
+                                        alt="現在の図面" class="max-w-xs">
+                                </div>
+                            @endif
+                            <input type="file" name="drawing_file" id="drawing_file" accept="image/*"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            @error('drawing_file')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="notes" class="block text-gray-700 text-sm font-bold mb-2">備考</label>
+                            <textarea name="notes" id="notes" rows="3"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ old('notes', $inventory->notes) }}</textarea>
+                            @error('notes')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                更新
+                            </button>
+                            <a href="{{ route('inventories.index') }}" class="text-blue-500 hover:text-blue-800">
+                                キャンセル
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>

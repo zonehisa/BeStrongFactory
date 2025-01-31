@@ -21,6 +21,13 @@ class Inventory extends Model
         'current_stock',     // 現在の在庫数
         'minimum_stock',     // 最小在庫数（安全在庫数）
         'package_quantity',  // 1パッケージあたりの入り数
+        'supplier_name',     // 仕入先
+        'customer_name',     // 顧客
+        'purchase_price',    // 仕入れ価格
+        'selling_price',     // 販売価格
+        'lead_time',         // 納期（日数）
+        'drawing_file',      // 図面ファイルパス
+        'notes',             // 備考
         'user_id',           // 担当者ID
     ];
 
@@ -32,6 +39,9 @@ class Inventory extends Model
     protected $casts = [
         'alert_triggered' => 'boolean',  // アラート発生フラグ
         'last_order_date' => 'date',     // 最終発注日
+        'purchase_price' => 'decimal:2',
+        'selling_price' => 'decimal:2',
+        'lead_time' => 'integer',
     ];
 
     /**

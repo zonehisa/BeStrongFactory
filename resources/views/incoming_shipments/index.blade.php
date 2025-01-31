@@ -20,6 +20,10 @@
                                     </th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        仕入先
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         商品名
                                     </th>
                                     <th
@@ -39,6 +43,9 @@
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $shipment->created_at->format('Y/m/d H:i') }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            {{ $shipment->inventory->supplier_name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $shipment->inventory->item_name }}
