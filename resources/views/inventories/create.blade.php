@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="flex">
         <x-sidebar class="w-64 bg-blue-900 text-white hidden md:block" />
-        <div class="flex-1 p-4 md:p-6 ml-64">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
-                <div class="mt-10 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="flex-1 p-4 md:p-6 ml-64 mt-16">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6">
                         <h2 class="text-xl font-bold text-gray-900 mb-4">在庫マスター登録</h2>
                             <form method="POST" action="{{ route('inventories.store') }}" enctype="multipart/form-data">

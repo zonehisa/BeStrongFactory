@@ -1,13 +1,11 @@
 <x-app-layout>
     <div class="flex">
-        <x-sidebar />
-        <div class="w-full mt-16">
+        <x-sidebar class="w-64 bg-blue-900 text-white hidden md:block" />
+        <div class="flex-1 p-4 md:p-6 ml-64 mt-16">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="mt-10 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="text-blue-900">
-                        <div class="bg-blue-900 h-16 flex items-center px-6">
-                            <h2 class="text-xl font-bold text-white">出庫登録</h2>
-                        </div>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="text-gray-900">
+                        <h2 class="text-xl font-bold text-gray-900 mb-4 p-6">出庫登録</h2>
                         <div class="p-6">
                             <form method="POST" action="{{ route('outgoing_shipments.store') }}">
                                 @csrf

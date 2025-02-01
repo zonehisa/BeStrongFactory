@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="flex">
         <x-sidebar class="w-64 bg-blue-900 text-white hidden md:block" />
-        <div class="flex-1 p-4 md:p-6 ml-64">
+        <div class="flex-1 p-4 md:p-6 ml-64 mt-16">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <!-- 基本情報 -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-6">
