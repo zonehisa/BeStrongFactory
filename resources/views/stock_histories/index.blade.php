@@ -50,7 +50,7 @@
                                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">
                                         </td>
                                         <td class="pr-4">
-                                            <input type="date" name="date_to" id="date_to" 
+                                            <input type="date" name="date_to" id="date_to"
                                                 value="{{ request('date_to') }}"
                                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">
                                         </td>
@@ -75,7 +75,7 @@
                                 <tr>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        日時
+                                        商品ID
                                     </th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -97,13 +97,17 @@
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         担当者
                                     </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        日時
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($stockHistories as $history)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $history->record_date->format('Y/m/d H:i') }}
+                                            {{ $history->inventory->item_code }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $history->inventory->item_name }}
@@ -132,6 +136,9 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $history->user->name }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            {{ $history->record_date->format('Y/m/d H:i') }}
                                         </td>
                                     </tr>
                                 @endforeach
