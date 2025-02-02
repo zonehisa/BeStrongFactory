@@ -52,6 +52,7 @@ class IncomingShipmentController extends Controller
             DB::beginTransaction();
 
             $inventory = Inventory::findOrFail($request->inventory_id);
+            $totalQuantity = $request->quantity * $inventory->package_quantity;
 
             // 入庫情報を記録
             $incomingShipment = new IncomingShipment();
@@ -65,7 +66,7 @@ class IncomingShipmentController extends Controller
 
             DB::commit();
             return redirect()->route('inventories.index')
-                ->with('success', "{$inventory->item_name}を{$request->quantity}個入庫しました。");
+                ->with('success', "{$inventory->item_name}を{$totalQuantity}個入庫しました。");
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()

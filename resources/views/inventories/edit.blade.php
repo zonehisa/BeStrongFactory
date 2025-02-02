@@ -5,9 +5,9 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        <h2 class="text-xl font-bold text-gray-900 mb-4">在庫編集</h2>
-                    <form method="POST" action="{{ route('inventories.update', $inventory->id) }}"
-                        enctype="multipart/form-data">
+                        <h2 class="font-bold text-gray-900 p-6 text-xl">在庫編集</h2>
+                        <form method="POST" action="{{ route('inventories.update', $inventory->id) }}"
+                            enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
