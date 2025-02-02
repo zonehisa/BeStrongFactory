@@ -1,4 +1,4 @@
-<div class="fixed mt-16 w-64 h-screen bg-blue-900 text-white">
+<div class="fixed left-0 mt-16 w-64 h-screen bg-blue-900 text-white">
     <ul class="font-bold">
         <li>
             <a href="{{ route('inventories.index') }}"

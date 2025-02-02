@@ -1,10 +1,7 @@
 <x-app-layout>
-    <div class="flex min-h-screen">
-        <!-- サイドバー -->
-        <x-sidebar class="w-64 bg-blue-900 text-white hidden md:block" />
-
-        <!-- メインコンテンツ -->
-        <div class="flex-1 p-4 md:p-6 ml-64">
+    <div class="min-h-screen">
+        <x-sidebar />
+        <div class="ml-64 mt-16 p-4 md:p-6">
             <div class="text-2xl font-bold text-gray-800 leading-tight">ダッシュボード</div>
 
             <!-- コンテンツカード -->

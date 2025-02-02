@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="flex">
         <x-sidebar class="w-64 bg-blue-900 text-white hidden md:block" />
-        <div class="flex-1 p-4 md:p-6 ml-64">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
+        <div class="flex-1 p-4 md:p-6 ml-64 mt-16">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <h2 class="text-xl font-bold mb-4">在庫履歴一覧</h2>
@@ -101,13 +101,17 @@
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         日時
                                     </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        操作
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($stockHistories as $history)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $history->inventory->item_code }}
+                                            a{{ $history->inventory->item_code }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $history->inventory->item_name }}
@@ -139,6 +143,15 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             {{ $history->record_date->format('Y/m/d H:i') }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            @if ($history->movement_type === 'incoming')
+                                                <a href="{{ route('incoming_shipments.edit', $history->reference->id) }}"
+                                                    class="text-blue-500 hover:text-blue-700">編集</a>
+                                            @else
+                                                <a href="{{ route('outgoing_shipments.edit', $history->reference->id) }}"
+                                                    class="text-blue-500 hover:text-blue-700">編集</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
