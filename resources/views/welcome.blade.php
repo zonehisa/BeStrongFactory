@@ -27,7 +27,7 @@
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                         <div class="flex lg:justify-center lg:col-start-2">
                             <img src="{{ asset('images/images_BFS.png') }}" class="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20]" viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <p class="text-white text-2xl font-bold pt-4">BeStrongFactory</p>
+                            <p class="text-gray text-2xl font-bold pt-4">BeStrongFactory</p>
                         </div>
                         @if (Route::has('login'))
                             <nav class="-mx-3 flex flex-1 justify-end">

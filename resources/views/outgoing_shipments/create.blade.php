@@ -4,11 +4,10 @@
         <div class="flex-1 p-4 md:p-6 ml-64 mt-16">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="text-gray-900">
-                        <h2 class="text-xl font-bold text-gray-900 mb-4 p-6">出庫登録</h2>
-                        <div class="p-6">
-                            <form method="POST" action="{{ route('outgoing_shipments.store') }}">
-                                @csrf
+                    <div class="p-6 text-gray-900">
+                        <h2 class="text-xl font-bold text-gray-900 mb-4">出庫登録</h2>
+                        <form method="POST" action="{{ route('outgoing_shipments.store') }}">
+                            @csrf
 
                                 <div class="mb-4">
                                     <label for="inventory_id"
@@ -60,9 +59,8 @@
                                         class="text-blue-500 hover:text-blue-800">
                                         キャンセル
                                     </a>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
